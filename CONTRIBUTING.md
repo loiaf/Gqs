@@ -1,19 +1,24 @@
-# Contribuindo com o projeto
+# Contribuindo
 
-## Convenções de código
+## Antes de enviar uma alteração
 
-- Utilizar nomes de variáveis e funções claros e em snake_case.
-- Manter cada função com uma responsabilidade bem definida.
-- Evitar código duplicado.
-- Manter mensagens compreensíveis para o usuário.
-- Utilizar indentação de 4 espaços.
-- Utilizar docstrings nas funções e no módulo quando necessário.
+1. Execute o programa: `python src/main.py`.
+2. Confira as mudanças: `git status` e `git diff`.
+3. Execute as análises: `pylint src` e `radon cc src -s`.
+4. Faça um commit com uma mensagem objetiva.
 
-## PyLint
+## Convenções
 
-O projeto utiliza o PyLint para análise estática do código.
+- Um commit representa uma alteração verificável.
+- Não inclua dados reais de pessoas no repositório.
+- Registre decisões e resultados relevantes no histórico Git.
 
-Antes de realizar um commit, executar:
+## Antes de iniciar
+
+Certifique-se de que está trabalhando com a versão atualizada do projeto:
 
 ```bash
-pylint cadastro_inspecionado.py
+git switch main
+git pull
+git status
+```
