@@ -20,8 +20,11 @@ class CadastroPessoas:
     def consultar(self, nome):
         pos = self.buscar(nome)
         if pos == -1:
-            return None
+                return None
         return self.__pessoas[pos]
+
+    def buscarPorNome(self, nome):
+        return self.consultar(nome)
 
     def alterar(self, nome, novo_nome, nova_idade, novo_email):
         pos = self.buscar(nome)
