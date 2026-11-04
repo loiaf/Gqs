@@ -1,37 +1,40 @@
+from typing import List, Optional
+
 from pessoa import Pessoa
+from repositorio_pessoas import RepositorioPessoas
+from repositorio_pessoas_memoria import RepositorioPessoasMemoria
 
 
 class CadastroPessoas:
-    def __init__(self):
-        self.__pessoas = []
+    """Gerencia as operações de cadastro de pessoas."""
+
+    def __init__(
+        self, repositorio: Optional[RepositorioPessoas] = None
+    ) -> None:
+        if repositorio is None:
+            repositorio = RepositorioPessoasMemoria()
+        self.__repositorio = repositorio
 
     def cadastrar(self, nome, idade, email):
         pessoa = Pessoa(nome, idade, email)
-        self.__pessoas.append(pessoa)
+        self.__repositorio.cadastrar(pessoa)
+        return pessoa
 
-    def buscar(self, nome):
-        pos = 0
-        while pos < len(self.__pessoas):
-            if self.__pessoas[pos].nome == nome:
-                return pos
-            pos = pos + 1
-        return -1
+    def buscarPorNome(self, nome):
+        return self.__repositorio.buscar(nome)
 
     def consultar(self, nome):
-        pos = self.buscar(nome)
-        if pos == -1:
-            return None
-        return self.__pessoas[pos]
+        return self.buscarPorNome(nome)
+
+    def listar(self) -> List[Pessoa]:
+        return self.__repositorio.listar()
 
     def alterar(self, nome, novo_nome, nova_idade, novo_email):
-        pos = self.buscar(nome)
-        if pos == -1:
-            return False
+        pessoa = self.buscarPorNome(nome)
+        if pessoa is None:
+            return None
 
-        self.__pessoas[pos].nome = novo_nome
-        self.__pessoas[pos].idade = nova_idade
-        self.__pessoas[pos].email = novo_email
-        return True
-
-    def listar(self):
-        return self.__pessoas
+        pessoa.setNome(novo_nome)
+        pessoa.setIdade(nova_idade)
+        pessoa.setEmail(novo_email)
+        return pessoa
